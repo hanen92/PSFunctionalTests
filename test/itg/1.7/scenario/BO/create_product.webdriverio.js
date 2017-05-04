@@ -230,19 +230,23 @@ describe('The Product Creation', function () {
                 .call(done);
         });
 
-        it('should check the product description', function (done) {
-            global.fctname = this.test.title;
-            this.client
-                .click(this.selector.description_button)
-                .execute(function () {
-                    document.querySelector('textarea#form_step1_description_1').style = "";
-                })
-                .getText('textarea#form_step1_description_1').then(function (text) {
-                var my_description = text;
-                should(my_description).be.equal("this the description");
-            })
-                .call(done);
-        });
+         it('should check the product description', function(done){
+			    global.fctname= this.test.title;
+			    this.client
+                    .moveToObject('//*[@id="form_step1_description_short_1_ifr"]')
+                    .pause(5000)
+                    .click('//*[@id="tab_description"]')
+                   .execute(function() {
+                        document.querySelector('textarea#form_step1_description_1').style="";
+                        })
+                    .pause(5000)
+                    .getText('//*[@id="form_step1_description_1"]').then(function(text) {
+                        var my_description = text;
+                        console.log(text);
+                        should(my_description).be.equal("this the description");
+                    })
+                  .call(done);
+			});
 
         it('should check the product price', function (done) {
             global.fctname = this.test.title;
